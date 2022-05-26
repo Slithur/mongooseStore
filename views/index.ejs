@@ -15,8 +15,13 @@
         <% stores.forEach(store=> { %>
             <li>
                 <a href="/stores/<%=store._id; %>">
-                    <%=store.name; %>
+                    <%=stores.name; %>
+                    <%=stores.img; %>
                 </a>
+                <form  action="/stores/<%= store.id %>?_method=DELETE" method="POST" style="display:inline; margin-left:16px;">
+                    <input type="submit" value="DELETE" />
+                </form>
+                <a href="/stores/<%=store._id %>/edit">Edit</a>
             </li>
             <% }) %>
     </ul>

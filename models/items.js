@@ -1,4 +1,4 @@
-const store = [
+const stores = [
         {
           name: 'Beans',
           description: 'A small pile of beans. Buy more beans for a big pile of beans.',
@@ -21,4 +21,4 @@ const store = [
       ]
 
 
-      module.exports = store;
+      module.exports = stores;

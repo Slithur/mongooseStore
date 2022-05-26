@@ -1,13 +1,7 @@
 const express = require('express');
 const res = require('express/lib/response');
-const app = express();
-require('dotenv').config();
-const mongoose = require('mongoose');
-const Store = require('./models/store');
-const methodOverride = require("method-override")
-
-// Middleware
-app.use(methodOverride("_method"))
+const Store = express('./models/store');
+const router = express.Router();
 
 mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
@@ -27,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 // ROUTES
 
 // INDEX
-app.get('/store', (req, res) => {
+router.get('/', (req, res) => {
   Store.find({}, (error, allStore) => {
     res.render('index.ejs', {
       stores: allStore
@@ -36,19 +30,14 @@ app.get('/store', (req, res) => {
 });
 
 // NEW
-app.get('/store/new', (req, res) => {
+router.get('/new', (req, res) => {
   res.render('new.ejs');
 });
 
-// Delete
-app.delete("/books/:id", (req, res) => {
-  Book.findByIdAndRemove(req.params.id, (err, data) => {
-    res.redirect("/books")
-  })
-})
+// D
 
 //  Create
-app.post('/store', (req, res) => {
+router.post('/', (req, res) => {
   if (req.body.completed === 'on') {
     //if checked, req.body.completed is set to 'on'
     req.body.completed = true;
@@ -62,19 +51,8 @@ app.post('/store', (req, res) => {
   });
 });
 
-
-// Edit
-app.get("/stores/:id/edit", (req, res) => {
-  Store.findById(req.params.id, (error, foundStore) => {
-    res.render("edit.ejs", {
-      book: foundStore,
-    })
-  })
-})
-
-
 // Show
-app.get('/stores/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   Store.findById(req.params.id, (err, foundStore) => {
     res.render('show.ejs', {
       store: foundStore
@@ -82,8 +60,4 @@ app.get('/stores/:id', (req, res) => {
   });
 });
 
-// listener
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-  console.log(`jarvis is live: ${PORT}`);
-});
+module.exports = router;
