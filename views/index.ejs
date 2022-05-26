@@ -1,30 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 
 <body>
-    <nav>
-        <a href="/store/new">Add a New item</a>
-    </nav>
-    <h1>Store index page</h1>
-    <ul>
-        <% stores.forEach(store=> { %>
-            <li>
-                <a href="/stores/<%=store._id; %>">
-                    <%=stores.name; %>
-                    <%=stores.img; %>
-                </a>
-                <form  action="/stores/<%= store.id %>?_method=DELETE" method="POST" style="display:inline; margin-left:16px;">
-                    <input type="submit" value="DELETE" />
-                </form>
-                <a href="/stores/<%=store._id %>/edit">Edit</a>
-            </li>
-            <% }) %>
-    </ul>
+    <a href="/store/new">Add a New Product</a>
+    <h1>The Shop</h1>
+    <div class = "container">
+        <%products.forEach(product => { %>
+            
+                <h3><%=product.name%></h3>
+                <a href="/store/<%=product._id; %>"><img src = "<%=product.img%>" width ="300" height="400"></a>
+                 <h3>$<%=product.price%></h3>
+                
+                <% }) %>
+            
+      
+    </div>
 </body>
-
 </html>
